@@ -1,20 +1,25 @@
-package com.techacademy;
+package com.techacademy.entity;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import java.sql.Timestamp;
+import java.time.LocalDateTime;
+
 import javax.persistence.Entity;
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Where;
+
 import lombok.Data;
 
 
 @Data
 @Entity
 @Table(name="employee")
+@Where(clause = "delete_flag = 0")
 public class Employee {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -23,12 +28,14 @@ public class Employee {
     @Column(length = 20, nullable = false)
     private String name;
 
-
     private Integer delete_flag;
 
-    @Column(name = "create_at", updatable = false)
-    private Timestamp createAt;
+    @Column(name = "created_at", nullable = false)
+    private LocalDateTime createdAt;
 
-    @Column(name = "update_at")
-    private Timestamp updateAt;
+    @Column(name = "updated_at")
+    private LocalDateTime updatedAt;
+
+    @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
+    private Authentication authentication;
 }
