@@ -1,7 +1,7 @@
 package com.techacademy.controller;
 
 import java.time.LocalDateTime;
-import java.util.List;
+
 
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.techacademy.entity.Employee;
+
 import com.techacademy.entity.Report;
 import com.techacademy.service.ReportService;
 import com.techacademy.service.UserDetail;

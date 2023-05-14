@@ -6,7 +6,7 @@ import javax.transaction.Transactional;
 
 import org.springframework.stereotype.Service;
 
-import com.techacademy.entity.Employee;
+
 import com.techacademy.entity.Report;
 import com.techacademy.repository.ReportRepository;
 
