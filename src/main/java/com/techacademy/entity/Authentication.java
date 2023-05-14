@@ -36,6 +36,7 @@ public class Authentication {
     @Enumerated(EnumType.STRING)
     private Role role;
 
+
     @OneToOne
     @JoinColumn(name = "employee_id", referencedColumnName = "id")
     private Employee employee;

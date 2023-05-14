@@ -1,5 +1,8 @@
 package com.techacademy.controller;
 
+import java.time.LocalDateTime;
+
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.techacademy.entity.Employee;
 import com.techacademy.service.EmployeeService;
+import com.techacademy.service.UserDetail;
 
 @Controller
 @RequestMapping("employee")
@@ -46,6 +50,11 @@ public class EmployeeController {
     @PostMapping("/register")
     public String postRegister(Employee employee) {
         // User登録
+        employee.setCreatedAt(LocalDateTime.now());
+        employee.setUpdatedAt(LocalDateTime.now());
+        employee.setDelete_flag(0);
+        employee.getAuthentication().setEmployee(employee);
+
         service.saveEmployee(employee);
         // 一覧画面にリダイレクト
         return "redirect:/employee/list";
@@ -55,6 +64,7 @@ public class EmployeeController {
     public String getEmployee(@PathVariable("id") Integer id, Model model) {
         // Modelに登録
         model.addAttribute("employee", service.getEmployee(id));
+
         // User更新画面に遷移
         return "employee/update";
     }
@@ -72,9 +82,7 @@ public class EmployeeController {
 
         upEm.getAuthentication().setRole(employee.getAuthentication().getRole());
 
-        upEm.setCreatedAt(employee.getCreatedAt());
-
-        upEm.setUpdatedAt(employee.getUpdatedAt());
+        upEm.setUpdatedAt(LocalDateTime.now());
 
         service.saveEmployee(upEm);
 
