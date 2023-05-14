@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/report/rlist.css}">
 </head>
 <body>
-    <h1>従業員情報 詳細ページ</h1>
+    <h1>日報情報 詳細ページ</h1>
     <table>
          <tr>
             <tr><th>氏名</th><td th:text="${report.employee.name}"></td></tr>
@@ -18,7 +18,7 @@
         </tr>
     </table>
 
-<a th:href="@{/report/rupdate/{id}(id = ${report.id})}">この従業員情報を編集する</a>
+<a th:if = "${loginUser.id} eq ${report.employee.id}" th:href="@{/report/rupdate/{id}(id = ${report.id})}">この日報情報を編集する</a>
 <a th:href="@{/report/rlist}">一覧に戻る</a>
 
 </body>

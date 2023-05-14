@@ -1,5 +1,6 @@
 package com.techacademy.controller;
 
+
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
@@ -11,4 +12,5 @@ public class LoginController {
         // login.htmlに画面遷移
         return "login";
     }
+
 }

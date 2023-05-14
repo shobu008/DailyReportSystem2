@@ -6,7 +6,7 @@
     <link rel="stylesheet" th:href="@{/css/report/rupdate.css}">
 </head>
 <body>
-    <h1>従業員 編集ページ</h1>
+    <h1>日報 編集ページ</h1>
     <h2>(パスワードは変更する場合のみ入力してください)</h2>
     <form method="post" th:action="@{/report/rupdate/{id}(id = ${report.id})}" th:object="${report}">
         <label for="reportDate">日付</label>

@@ -2,7 +2,8 @@ package com.techacademy.controller;
 
 import java.time.LocalDateTime;
 
-
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,6 +19,8 @@ import com.techacademy.service.EmployeeService;
 @Controller
 @RequestMapping("employee")
 public class EmployeeController {
+    @Autowired
+    private PasswordEncoder passwordEncoder;
     private final EmployeeService service;
 
     public EmployeeController(EmployeeService service) {
@@ -54,6 +57,7 @@ public class EmployeeController {
         employee.setUpdatedAt(LocalDateTime.now());
         employee.setDelete_flag(0);
         employee.getAuthentication().setEmployee(employee);
+        employee.getAuthentication().setPassword(passwordEncoder.encode(employee.getAuthentication().getPassword()));
 
         service.saveEmployee(employee);
         // 一覧画面にリダイレクト
@@ -71,6 +75,7 @@ public class EmployeeController {
 
     /** User更新処理 */
     @PostMapping("/update/{id}")
+
     public String postEmployee(@PathVariable("id") Integer id,Employee employee) {
         // User登録
 
@@ -78,11 +83,13 @@ public class EmployeeController {
 
         upEm.setName(employee.getName());
 
-        upEm.getAuthentication().setPassword(employee.getAuthentication().getPassword());
+        upEm.getAuthentication().setPassword(passwordEncoder.encode(employee.getAuthentication().getPassword()));
 
         upEm.getAuthentication().setRole(employee.getAuthentication().getRole());
 
         upEm.setUpdatedAt(LocalDateTime.now());
+
+
 
         service.saveEmployee(upEm);
 

@@ -37,8 +37,9 @@ public class ReportController {
     }
 
     @GetMapping(value = {"/repo","/repo/{id}"})
-    public String getRepo(@PathVariable("id") Integer report_id, Model model) {
+    public String getRepo(@PathVariable("id") Integer report_id, Model model,@AuthenticationPrincipal UserDetail userDetail) {
         // 詳細画面に遷移
+        model.addAttribute("loginUser", userDetail.getEmployee());
         model.addAttribute("report", service.getReport(report_id));
         return "report/repo";
     }
